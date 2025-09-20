@@ -1,3 +1,4 @@
+
 * {
   margin: 0;
   padding: 0;
@@ -14,18 +15,15 @@ body {
 main .hero {
   height: 100vh;
   width: 100vw;
-  background: url(/Images/Hero\ bg.png);
+  background: url(/Images/Hero\ bg.png) no-repeat;
   background-size: cover;
   background-position: center;
-  position: relative;
 }
 
 .hero-main {
-  height: 100%;
-  width: 100%;
   display: flex;
   justify-content: space-between;
-  position: relative;
+  flex-wrap: wrap;
   padding: 50px;
 }
 
@@ -43,7 +41,7 @@ main .hero {
 
 .hero-tagline h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 3rem;
+  font-size: 3vw;
   color: #222222;
   line-height: 1.2;
 }
@@ -126,3 +124,180 @@ main .hero {
   font-size: 1rem;
   font-weight: 500;
 }
+
+@media (max-width: 970px) {
+  .hero-quote {
+    display: none;
+  }
+
+  .hero-main {
+    padding: 30px 20px;
+    /* less padding on small screens */
+  }
+
+  .hero-tagline h1 {
+    font-size: 2.2rem;
+    /* reduce heading size */
+  }
+}
+
+/* 4. Move background image gradually to the right on small screens */
+@media (max-width: 1200px) {
+  .hero {
+    background-position: 70% center;
+  }
+}
+
+@media (max-width: 970px) {
+  .hero {
+    background-position: 80% center;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    background-position: 90% center;
+  }
+}
+
+/* 5. Make tagline full width on small screens */
+@media (max-width: 768px) {
+  .hero-tagline {
+    width: 100%;
+  }
+
+  .hero-tagline h1 {
+    font-size: 2rem;
+  }
+
+  .hero-tagline p {
+    font-size: 0.95rem;
+  }
+}
+
+/* Benefits */
+.benefits {
+  overflow: hidden;
+}
+
+.benefits-top {
+  text-align: center;
+  margin: 50px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.benefits-top .stronge {
+  text-transform: uppercase;
+  color: #7c6591;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.benefits-top h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3vw;
+  color: #222222;
+  line-height: 1.2;
+}
+/* Benefits Bottom Layout */
+.benefits-bottom {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 48px;
+  padding: 40px 0;
+}
+
+.benefit-bottom-img img {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(124,101,145,0.08);
+}
+
+.benefit-bottom-text {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.benefit-text-item {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border-radius: 12px;
+  padding: 18px 22px;
+}
+.benefit-text-item i{
+  font-size: 2.5rem;
+  color: #f77c00;
+}
+.benefit-text-item h3 {
+  margin: 0 0 4px 0;
+  font-size: 1.5vw;
+  color: #222;
+}
+
+.benefit-text-item p {
+  margin: 0;
+  color: #7e7e7e;
+  font-size: 1.1vw;
+}
+
+@media (max-width: 950px) {
+  .benefits-top {
+    margin: 30px 20px;
+  }
+  .benefits-top h1 {
+    font-size: 5vw;
+  }
+}
+@media (max-width: 730px) {
+  .benefits-bottom {
+    flex-direction: column;
+    gap: 32px;
+    padding: 0 53px;
+  }
+  .benefit-bottom-img {
+    max-width: 320px;
+  }
+  .benefit-bottom-text {
+    gap: 20px;
+  }
+  .benefit-text-item h3 {
+    font-size: 2.8vw;
+  }
+  .benefit-text-item p {
+    font-size: 2.2vw;
+  }
+    .benefit-bottom-img img {
+    width: 85vw;
+  }
+}
+
+ @media (max-width: 530px) {
+     .benefit-bottom-img img {
+    width: 100%;
+  }
+      .benefits-bottom {
+        padding: 0 20px;
+    }
+
+  
+  .benefit-text-item h3 {
+    font-size: 4vw;
+  }
+  .benefit-text-item p {
+    font-size: 3vw;
+  }
+}
+/* @media (max-width: 600px) {
+  .benefits-bottom {
+    padding: 10px 0;
+    gap: 18px;
+  }
+ 
+} */
