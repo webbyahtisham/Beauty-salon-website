@@ -25,3 +25,67 @@ items.forEach(item => {
     }
   });
 });
+
+
+  const reviews = [
+    {
+      text: "Thank you Glow Better for your continuous assistance and support. Looking forward for the same support in upcoming days.",
+      author: "Pristia Candra",
+      role: "Beauty Blogger",
+      img: "images/customer1.png"
+    },
+    {
+      text: "Glow Better has changed my skincare routine completely. I love the results and the service is amazing!",
+      author: "Amanda Lee",
+      role: "Content Creator",
+      img: "images/customer2.png"
+    },
+    {
+      text: "Excellent products with top quality support. Highly recommended to everyone!",
+      author: "Michael Tan",
+      role: "Entrepreneur",
+      img: "images/customer3.png"
+    }
+  ];
+
+  let index = 0;
+  const reviewText = document.getElementById("reviewText");
+  const reviewAuthor = document.getElementById("reviewAuthor");
+
+  function showReview(newIndex) {
+    const review = reviews[newIndex];
+
+    // fade out old
+    gsap.to([reviewText, reviewAuthor, reviewRole], {
+      opacity: 0,
+      duration: 0.5,
+      onComplete: () => {
+        // change content
+        reviewText.textContent = review.text;
+        reviewAuthor.textContent = review.author;
+        reviewRole.textContent = review.role;
+
+        // fade in new
+        gsap.to([reviewText, reviewAuthor, reviewRole], {
+          opacity: 1,
+          duration: 0.5
+        });
+      }
+    });
+  }
+
+  document.getElementById("nextBtn").addEventListener("click", () => {
+    index = (index + 1) % reviews.length;
+    showReview(index);
+  });
+
+  document.getElementById("prevBtn").addEventListener("click", () => {
+    index = (index - 1 + reviews.length) % reviews.length;
+    showReview(index);
+  });
+
+  // Auto change every 4 seconds
+  setInterval(() => {
+    index = (index + 1) % reviews.length;
+    showReview(index);
+  }, 6000);
