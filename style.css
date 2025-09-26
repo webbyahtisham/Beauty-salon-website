@@ -80,83 +80,87 @@ body {
 
 /* nav header */
 
- nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 20px 40px;
-      display: flex;
-      justify-content: end;
-      align-items: center;
-      background: transparent;
-      z-index: 1000;
-    }
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  background: transparent;
+  z-index: 1000;
+}
 
-    .logo {
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      cursor: pointer;
-    }
+.logo {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
 
-    /* Menu button */
-    .menu-btn {
-      background: #F77C00;
-      color: #fff;
-      padding: 10px 14px;
-      border-radius: 6px;
-      font-size: 20px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .menu-btn:hover {
-      transform: scale(1.1);
-    }
+/* Menu button */
+.menu-btn {
+  background: #F77C00;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    /* Overlay menu */
-    .menu-overlay {
-      position: fixed;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100vh;
-      background: #111;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 40px;
-      font-size: 32px;
-      font-weight: 600;
-      z-index: 999;
-    }
+.menu-btn:hover {
+  transform: scale(1.1);
+}
 
-    .menu-overlay a {
-      color: #fff;
-      text-decoration: none;
-      position: relative;
-    }
-    .menu-overlay a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 100%;
-      height: 2px;
-      background: #fff;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s ease;
-    }
-    .menu-overlay a:hover::after {
-      transform: scaleX(1);
-    }
+/* Overlay menu */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100vh;
+  background: #111;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  font-size: 32px;
+  font-weight: 600;
+  z-index: 999;
+}
+
+.menu-overlay a {
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+}
+
+.menu-overlay a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.menu-overlay a:hover::after {
+  transform: scaleX(1);
+}
+
 /* Hero */
 main .hero {
   height: 100vh;
-   width: 100%;
+  width: 100%;
   background: url(/Images/Hero\ bg.png) no-repeat;
   background-size: cover;
   background-position: center;
@@ -979,6 +983,7 @@ main .hero {
 
 .footer-links {
   display: flex;
+  justify-content: space-between;
   flex: 2;
   gap: 50px;
   flex-wrap: wrap;
@@ -1003,6 +1008,12 @@ main .hero {
 }
 
 /* Social icons */
+.socials {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 .socials a {
   font-size: 20px;
   color: #333;
@@ -1062,6 +1073,7 @@ main .hero {
   .footer-container {
     flex-direction: column;
   }
+
   .footer-links {
     gap: 30px;
   }
