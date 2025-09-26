@@ -1,10 +1,64 @@
+// ==========================
+// 🌐 NAV MENU TOGGLE
+// ==========================
+const hamburger = document.querySelector(".hamburger");
+const menu = document.querySelector(".menu-overlay");
+const menuLinks = document.querySelectorAll(".menu-overlay a");
+let menuOpen = false;
+
+function openMenu() {
+  gsap.to(menu, { left: 0, duration: 0.6, ease: "power4.out" });
+  gsap.fromTo(
+    ".menu-overlay a",
+    { y: 50, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, delay: 0.2 }
+  );
+  hamburger.classList.remove("ri-menu-3-line");
+  hamburger.classList.add("ri-close-large-line");
+  hamburger.style.color = "#fff";
+  document.body.style.overflow = "hidden"; // lock scroll
+  menuOpen = true;
+}
+
+function closeMenu() {
+  gsap.to(menu, { left: "-100%", duration: 0.6, ease: "power4.inOut" });
+  hamburger.classList.remove("ri-close-large-line");
+  hamburger.classList.add("ri-menu-3-line");
+  hamburger.style.color = "#111";
+  document.body.style.overflow = "auto"; // restore scroll
+  menuOpen = false;
+}
+
+// Toggle menu on hamburger click
+hamburger.addEventListener("click", () => {
+  menuOpen ? closeMenu() : openMenu();
+});
+
+// Close menu on link click
+menuLinks.forEach(link => link.addEventListener("click", closeMenu));
+
+// Close menu on scroll
+window.addEventListener("scroll", () => {
+  if (menuOpen) closeMenu();
+});
+
+// Close menu when clicking outside
+document.addEventListener("click", (e) => {
+  if (menuOpen && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+    closeMenu();
+  }
+});
+
+
+// ==========================
+// 🖼️ CATEGORY IMAGE PREVIEW
+// ==========================
 const items = document.querySelectorAll('.category-item .item');
 const preview = document.querySelector('.image-preview');
 
 items.forEach(item => {
   const img = item.getAttribute('data-img');
 
-  // ===== Desktop hover preview only =====
   item.addEventListener('mouseenter', () => {
     if (window.innerWidth > 900) {
       preview.style.backgroundImage = `url(${img})`;
@@ -27,6 +81,9 @@ items.forEach(item => {
 });
 
 
+// ==========================
+// ⭐ REVIEWS SLIDER
+// ==========================
 const reviews = [
   {
     text: "Thank you Glow Better for your continuous assistance and support. Looking forward for the same support in upcoming days.",
@@ -51,21 +108,22 @@ const reviews = [
 let index = 0;
 const reviewText = document.getElementById("reviewText");
 const reviewAuthor = document.getElementById("reviewAuthor");
+const reviewRole = document.getElementById("reviewRole");
 
 function showReview(newIndex) {
   const review = reviews[newIndex];
 
-  // fade out old
+  // Fade out old content
   gsap.to([reviewText, reviewAuthor, reviewRole], {
     opacity: 0,
     duration: 0.5,
     onComplete: () => {
-      // change content
+      // Update content
       reviewText.textContent = review.text;
       reviewAuthor.textContent = review.author;
       reviewRole.textContent = review.role;
 
-      // fade in new
+      // Fade in new content
       gsap.to([reviewText, reviewAuthor, reviewRole], {
         opacity: 1,
         duration: 0.5
@@ -74,6 +132,7 @@ function showReview(newIndex) {
   });
 }
 
+// Manual navigation
 document.getElementById("nextBtn").addEventListener("click", () => {
   index = (index + 1) % reviews.length;
   showReview(index);
@@ -84,73 +143,74 @@ document.getElementById("prevBtn").addEventListener("click", () => {
   showReview(index);
 });
 
-// Auto change every 4 seconds
+// Auto change every 6s
 setInterval(() => {
   index = (index + 1) % reviews.length;
   showReview(index);
 }, 6000);
 
-// loader
- const counter = document.getElementById("counter");
-    const preloader = document.getElementById("preloader");
-    const topSplit = document.querySelector(".top");
-    const bottomSplit = document.querySelector(".bottom");
-    const topLine = document.querySelector(".top .line-half");
-    const bottomLine = document.querySelector(".bottom .line-half");
-    const content = document.getElementById("content");
 
-    let tl = gsap.timeline({ paused: true });
+// ==========================
+// ⏳ PRELOADER
+// ==========================
+const counter = document.getElementById("counter");
+const preloader = document.getElementById("preloader");
+const topSplit = document.querySelector(".top");
+const bottomSplit = document.querySelector(".bottom");
+const topLine = document.querySelector(".top .line-half");
+const bottomLine = document.querySelector(".bottom .line-half");
+const content = document.getElementById("content");
 
-    // Count-up
-    function startCount() {
-      let count = { val: 0 };
-      gsap.to(count, {
-        val: 100,
-        duration: 2.2,
-        ease: "power1.out",
-        onUpdate: () => {
-          counter.textContent = Math.floor(count.val) + "%";
-        },
-        onComplete: () => {
-          showLineAndSplit();
-        }
-      });
-    }
+let tl = gsap.timeline({ paused: true });
 
-    function showLineAndSplit() {
-      // Reveal both line halves (grow from center)
-      gsap.to([topLine, bottomLine], {
-        scaleX: 1,
-        duration: 0.8,
-        ease: "power2.inOut",
-        onComplete: playRevealAnimation
-      });
-    }
+// Count-up
+function startCount() {
+  let count = { val: 0 };
+  gsap.to(count, {
+    val: 100,
+    duration: 2.2,
+    ease: "power1.out",
+    onUpdate: () => {
+      counter.textContent = Math.floor(count.val) + "%";
+    },
+    onComplete: showLineAndSplit
+  });
+}
 
-    function playRevealAnimation() {
-      tl.to(topSplit, {
-        y: "-100%",
-        duration: 1.2,
-        ease: "power4.inOut"
-      })
-      .to(bottomSplit, {
-        y: "100%",
-        duration: 1.2,
-        ease: "power4.inOut"
-      }, "<")
-      .to(preloader, {
-        opacity: 0,
-        duration: 0.5,
-        onComplete: () => {
-          preloader.style.display = "none";
-          content.style.display = "block";
-          document.body.style.overflow = "auto";
-        }
-      }, "-=0.3");
+// Show line animation
+function showLineAndSplit() {
+  gsap.to([topLine, bottomLine], {
+    scaleX: 1,
+    duration: 0.8,
+    ease: "power2.inOut",
+    onComplete: playRevealAnimation
+  });
+}
 
-      tl.play();
-    }
+// Reveal site content
+function playRevealAnimation() {
+  tl.to(topSplit, {
+    y: "-100%",
+    duration: 1.2,
+    ease: "power4.inOut"
+  })
+    .to(bottomSplit, {
+      y: "100%",
+      duration: 1.2,
+      ease: "power4.inOut"
+    }, "<")
+    .to(preloader, {
+      opacity: 0,
+      duration: 0.5,
+      onComplete: () => {
+        preloader.style.display = "none";
+        content.style.display = "block";
+        document.body.style.overflow = "auto";
+      }
+    }, "-=0.3");
 
-    window.onload = function() {
-      startCount();
-    };
+  tl.play();
+}
+
+// Start loader when page is ready
+window.onload = startCount;

@@ -13,66 +13,216 @@ body {
 
 body {
   height: 100%;
+  /* preloader */
 }
-  #preloader {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
 
-    /* Counter */
-    #counter {
-      position: absolute;
-      bottom: 20px;
-      right: 30px;
-      font-size: 22px;
-      font-weight: bold;
-      color: #000;
-      z-index: 20;
-    }
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    /* Splits */
-    .split {
-      position: absolute;
-      width: 100%;
-      height: 50%;
-      background: #fff;
-      left: 0;
-      overflow: hidden; /* keeps line inside */
-    }
-    .top { top: 0; }
-    .bottom { bottom: 0; }
+/* Counter */
+#counter {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #000;
+  z-index: 20;
+}
 
-    /* Half-lines */
-    .line-half {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: black;
-    }
-    .top .line-half {
-      bottom: 0; /* attaches line to bottom edge */
-      transform-origin: center;
-      transform: scaleX(0);
-    }
-    .bottom .line-half {
-      top: 0; /* attaches line to top edge */
-      transform-origin: center;
-      transform: scaleX(0);
-    }
-main .hero {
-  height: 100vh;
+/* Splits */
+.split {
+  position: absolute;
   width: 100%;
+  height: 50%;
+  background: #fff;
+  left: 0;
+  overflow: hidden;
+  /* keeps line inside */
+}
+
+.top {
+  top: 0;
+}
+
+.bottom {
+  bottom: 0;
+}
+
+/* Half-lines */
+.line-half {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: black;
+}
+
+.top .line-half {
+  bottom: 0;
+  /* attaches line to bottom edge */
+  transform-origin: center;
+  transform: scaleX(0);
+}
+
+.bottom .line-half {
+  top: 0;
+  /* attaches line to top edge */
+  transform-origin: center;
+  transform: scaleX(0);
+}
+
+/* nav header */
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  z-index: 1000;
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+/* Links (desktop) */
+/* Desktop nav links */
+.nav-left a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 500;
+  font-size: 15px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 4px;
+}
+
+.nav-left a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #111;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.nav-left a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Fullscreen overlay nav links */
+.menu-overlay a {
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 6px;
+}
+
+.menu-overlay a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.menu-overlay a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Fullscreen Menu */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100vh;
+  background: #111;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  font-size: 32px;
+  font-weight: 600;
+  z-index: 999;
+  overflow: hidden;
+}
+
+/* Links (overlay) */
+.menu-overlay a {
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-overlay a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.menu-overlay a:hover::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 900px) {
+  .nav-left {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
 }
 
 /* Hero */
 main .hero {
   height: 100vh;
-  width: 100vw;
+   width: 100%;
   background: url(/Images/Hero\ bg.png) no-repeat;
   background-size: cover;
   background-position: center;
@@ -417,11 +567,9 @@ main .hero {
 .img {
   position: absolute;
   width: 150px;
-  /* ✅ larger on big screens */
   border-radius: 12px;
   object-fit: cover;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
-  /* soft shadow */
   transition: transform 0.3s ease;
 }
 
@@ -580,6 +728,7 @@ main .hero {
 
   }
 }
+
 @media (max-width: 612px) {
   .category-item .item {
     font-size: 5vw;
