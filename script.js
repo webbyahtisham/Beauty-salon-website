@@ -1,54 +1,55 @@
 // ==========================
 // 🌐 NAV MENU TOGGLE
 // ==========================
-const hamburger = document.querySelector(".hamburger");
-const menu = document.querySelector(".menu-overlay");
-const menuLinks = document.querySelectorAll(".menu-overlay a");
-let menuOpen = false;
+  const menuBtn = document.querySelector(".menu-btn");
+    const menu = document.querySelector(".menu-overlay");
+    let menuOpen = false;
 
-function openMenu() {
-  gsap.to(menu, { left: 0, duration: 0.6, ease: "power4.out" });
-  gsap.fromTo(
-    ".menu-overlay a",
-    { y: 50, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, delay: 0.2 }
-  );
-  hamburger.classList.remove("ri-menu-3-line");
-  hamburger.classList.add("ri-close-large-line");
-  hamburger.style.color = "#fff";
-  document.body.style.overflow = "hidden"; // lock scroll
-  menuOpen = true;
-}
+    function openMenu() {
+      gsap.to(menu, { left: 0, duration: 0.6, ease: "power4.out" });
+      gsap.fromTo(".menu-overlay a",
+        { y: 50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, delay: 0.2 }
+      );
+      menuBtn.classList.remove("ri-menu-3-line");
+      menuBtn.classList.add("ri-close-large-line");
+      menuBtn.style.background = "#fff";
+      menuBtn.style.color = "#111";
+      document.body.style.overflow = "hidden";
+      menuOpen = true;
+    }
 
-function closeMenu() {
-  gsap.to(menu, { left: "-100%", duration: 0.6, ease: "power4.inOut" });
-  hamburger.classList.remove("ri-close-large-line");
-  hamburger.classList.add("ri-menu-3-line");
-  hamburger.style.color = "#111";
-  document.body.style.overflow = "auto"; // restore scroll
-  menuOpen = false;
-}
+    function closeMenu() {
+      gsap.to(menu, { left: "-100%", duration: 0.6, ease: "power4.inOut" });
+      menuBtn.classList.remove("ri-close-large-line");
+      menuBtn.classList.add("ri-menu-3-line");
+      menuBtn.style.background = "#F77C00";
+      menuBtn.style.color = "#fff";
+      document.body.style.overflow = "auto";
+      menuOpen = false;
+    }
 
-// Toggle menu on hamburger click
-hamburger.addEventListener("click", () => {
-  menuOpen ? closeMenu() : openMenu();
-});
+    menuBtn.addEventListener("click", () => {
+      if (!menuOpen) {
+        openMenu();
+      } else {
+        closeMenu();
+      }
+    });
 
-// Close menu on link click
-menuLinks.forEach(link => link.addEventListener("click", closeMenu));
+    // Close menu when clicking a link
+    document.querySelectorAll(".menu-overlay a").forEach(link => {
+      link.addEventListener("click", () => {
+        closeMenu();
+      });
+    });
 
-// Close menu on scroll
-window.addEventListener("scroll", () => {
-  if (menuOpen) closeMenu();
-});
-
-// Close menu when clicking outside
-document.addEventListener("click", (e) => {
-  if (menuOpen && !menu.contains(e.target) && !hamburger.contains(e.target)) {
+    // Close menu on scroll
+    window.addEventListener("scroll", () => {
+  if (menuOpen) {
     closeMenu();
   }
 });
-
 
 // ==========================
 // 🖼️ CATEGORY IMAGE PREVIEW
@@ -214,3 +215,13 @@ function playRevealAnimation() {
 
 // Start loader when page is ready
 window.onload = startCount;
+
+// ==========================
+// Fotter scroll to top
+// ==========================
+
+function scrollToHero() {
+  document.querySelector("main .hero").scrollIntoView({
+    behavior: "smooth"
+  });
+}
