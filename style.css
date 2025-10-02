@@ -270,6 +270,14 @@ main .hero {
   font-size: 1rem;
   font-weight: 500;
 }
+.reveal {
+  display: inline-block;
+  overflow: hidden;
+}
+.reveal span {
+  display: inline-block;
+  transform: translateY(100%);
+}
 
 @media (max-width: 970px) {
   .hero-quote {
@@ -397,7 +405,23 @@ main .hero {
   color: #7e7e7e;
   font-size: 1.1vw;
 }
+/* Mask wrapper for image */
+.benefit-bottom-img {
+  position: relative;
+  overflow: hidden;
+}
 
+/* Image hidden initially */
+.benefit-bottom-img img {
+  transform: scale(1.1);
+  opacity: 0;
+}
+
+/* Mask effect for text */
+.benefit-text-item {
+  opacity: 0;
+  transform: translateY(40px);
+}
 @media (max-width: 950px) {
   .benefits-top {
     margin: 30px 20px;
@@ -465,6 +489,7 @@ main .hero {
   overflow: hidden;
   /* prevents images from overflowing */
 }
+
 
 /* Content */
 .about-content h4 {
