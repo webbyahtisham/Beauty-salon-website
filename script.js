@@ -1,3 +1,17 @@
+// GSAP Cursor Follower
+const cursor = document.querySelector(".custom-cursor");
+
+const offset = { x: 30, y: 30 }; 
+
+window.addEventListener("mousemove", (e) => {
+  gsap.to(cursor, {
+    x: e.clientX + offset.x,
+    y: e.clientY + offset.y,
+    duration: 1.5,
+    ease: "power3.out"
+  });
+});
+
 // ==========================
 // 🌐 NAV MENU TOGGLE
 // ==========================
@@ -185,7 +199,9 @@ function showLineAndSplit() {
     duration: 0.8,
     ease: "power2.inOut",
     onComplete: playRevealAnimation
+
   });
+
 }
 
 // Reveal site content
@@ -211,6 +227,7 @@ function playRevealAnimation() {
     }, "-=0.3");
 
   tl.play();
+  hero()
 }
 
 // Start loader when page is ready
@@ -233,38 +250,41 @@ function scrollToHero() {
 // gsap animation on scroll
 // ==========================
 
-const heroTl = gsap.timeline({ defaults: { ease: "power4.out" } });
-
-// h1 + quote animate together (long smooth reveal)
-heroTl.to([".hero-tagline h1 .reveal span", ".hero-quote p .reveal span"], {
-  y: 0,
-  duration: 2,
-  stagger: 0.2
-});
-
-// Quote icon comes in at the same time as text
-heroTl.from(".hero-quote i", {
-  opacity: 0,
-  y: 20,
-  duration: 2
-}, "<");
-
-// Paragraph comes after headline + quote
-heroTl.to(".hero-tagline p .reveal span", {
-  y: 0,
-  duration: 1.6,
-  stagger: 0.15
-}, "-=1");
-
-// Learn More button (smooth fade-slide only, no laggy scale)
-heroTl.from(".learn-more", {
-  opacity: 0,
-  y: 25,
-  duration: 1.2,
-  ease: "power3.out"
-}, "-=0.8");
+function hero() {
 
 
+  const heroTl = gsap.timeline({ defaults: { ease: "power4.out" } });
+
+  // h1 + quote animate together (long smooth reveal)
+  heroTl.to([".hero-tagline h1 .reveal span", ".hero-quote p .reveal span"], {
+    y: 0,
+    duration: 2,
+    stagger: 0.2
+  });
+
+  // Quote icon comes in at the same time as text
+  heroTl.from(".hero-quote i", {
+    opacity: 0,
+    y: 20,
+    duration: 2
+  }, "<");
+
+  // Paragraph comes after headline + quote
+  heroTl.to(".hero-tagline p .reveal span", {
+    y: 0,
+    duration: 1.6,
+    stagger: 0.15
+  }, "-=1");
+
+  // Learn More button (smooth fade-slide only, no laggy scale)
+  heroTl.from(".learn-more", {
+    opacity: 0,
+    y: 25,
+    duration: 1.2,
+    ease: "power3.out"
+  }, "-=0.8");
+
+}
 
 // benefit animation
 gsap.registerPlugin(ScrollTrigger);
@@ -447,7 +467,7 @@ gsap.from(".review-image img", {
   // delay: 0.2
 });
 
-// === Circle background scale ===
+
 gsap.from(".review-image .circle-bg", {
   scrollTrigger: {
     trigger: ".review-section",
@@ -459,7 +479,25 @@ gsap.from(".review-image .circle-bg", {
   duration: 1,
 
 });
+// ==========================
+// Lenis
+// ==========================
+const lenis = new Lenis({
+  duration: 1.8,
+  smooth: true,
+  direction: 'vertical',
+  gestureDirection: 'vertical',
+  smoothTouch: false, // set true if you also want smooth on mobile
+  touchMultiplier: 2,
+  infinite: false
+});
 
-// ==========================
-// ✨ aBOUT SECTION ANIMATION
-// ==========================
+// RAF loop
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// Sync with ScrollTrigger
+lenis.on('scroll', ScrollTrigger.update);
